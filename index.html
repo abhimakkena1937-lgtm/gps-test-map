@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GreenCarbon Field Capture</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+
+        .controls {
+            position: absolute;
+            z-index: 1000;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        button {
+            border: none;
+            padding: 12px 16px;
+            margin: 5px 3px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #startBtn {
+            background: #1f6f43;
+            color: white;
+        }
+
+        #finishBtn {
+            background: #333;
+            color: white;
+        }
+
+        #clearBtn {
+            background: #ddd;
+        }
+
+        #status {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        #area {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="controls">
+
+    <strong>GreenCarbon — Field Capture</strong>
+
+    <br>
+
+    <button id="startBtn">
+        📍 Start Boundary
+    </button>
+
+    <button id="finishBtn" disabled>
+        ✓ Finish Boundary
+    </button>
+
+    <button id="clearBtn">
+        Clear
+    </button>
+
+    <div id="status">
+        GPS not started
+    </div>
+
+    <div id="area">
+        Area: -
+    </div>
+
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+
+<script>
+
+let map;
+let gpsMarker = null;
+
+let gpsPoints = [];
+let polygon = null;
+let accuracyCircle = null;
+
+let watchId = null;
+let capturing = false;
+
+
+/*
+|--------------------------------------------------------------------------
+| 1. Create Map
+|--------------------------------------------------------------------------
+*/
+
+map = L.map("map").setView(
+    [15.421523, 79.987231],
+    15
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| 2. Satellite Layer
+|--------------------------------------------------------------------------
+|
+| Replace this with a satellite provider you are licensed/authorized
+| to use in production.
+|
+*/
+
+L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors"
+    }
+).addTo(map);
+
+
+/*
+|--------------------------------------------------------------------------
+| 3. Start GPS Boundary
+|--------------------------------------------------------------------------
+*/
+
+document
+    .getElementById("startBtn")
+    .addEventListener("click", startBoundary);
+
+
+function startBoundary() {
+
+    if (!navigator.geolocation) {
+
+        alert(
+            "GPS/location is not supported by this browser."
+        );
+
+        return;
+    }
+
+    gpsPoints = [];
+    capturing = true;
+
+    document.getElementById("startBtn").disabled = true;
+    document.getElementById("finishBtn").disabled = false;
+
+    document.getElementById("status").innerText =
+        "Waiting for GPS location...";
+
+    /*
+    |--------------------------------------------------------------------------
+    | Watch GPS continuously
+    |--------------------------------------------------------------------------
+    */
+
+    watchId = navigator.geolocation.watchPosition(
+
+        handleGPS,
+
+        handleGPSError,
+
+        {
+            enableHighAccuracy: true,
+            maximumAge: 5000,
+            timeout: 15000
+        }
+
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 4. Receive GPS Location
+|--------------------------------------------------------------------------
+*/
+
+function handleGPS(position) {
+
+    const latitude =
+        position.coords.latitude;
+
+    const longitude =
+        position.coords.longitude;
+
+    const accuracy =
+        position.coords.accuracy;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ignore poor GPS readings
+    |--------------------------------------------------------------------------
+    */
+
+    if (accuracy > 10) {
+
+        document.getElementById("status").innerText =
+            "⚠ GPS accuracy is poor: " +
+            accuracy.toFixed(1) +
+            " m";
+
+        return;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current GPS position
+    |--------------------------------------------------------------------------
+    */
+
+    const currentPosition = [
+        latitude,
+        longitude
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update GPS marker
+    |--------------------------------------------------------------------------
+    */
+
+    if (!gpsMarker) {
+
+        gpsMarker = L.marker(
+            currentPosition
+        ).addTo(map);
+
+        map.setView(
+            currentPosition,
+            18
+        );
+
+    } else {
+
+        gpsMarker.setLatLng(
+            currentPosition
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accuracy circle
+    |--------------------------------------------------------------------------
+    */
+
+    if (accuracyCircle) {
+
+        accuracyCircle.remove();
+
+    }
+
+    accuracyCircle =
+        L.circle(
+            currentPosition,
+            {
+                radius: accuracy,
+                color: "blue",
+                fillOpacity: 0.1
+            }
+        ).addTo(map);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Add boundary point
+    |--------------------------------------------------------------------------
+    */
+
+    if (capturing) {
+
+        addGPSPoint(
+            latitude,
+            longitude,
+            accuracy
+        );
+
+    }
+
+
+    document.getElementById("status").innerText =
+        "🟢 GPS accuracy: " +
+        accuracy.toFixed(1) +
+        " m | Points: " +
+        gpsPoints.length;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 5. Add GPS Point
+|--------------------------------------------------------------------------
+*/
+
+function addGPSPoint(
+    latitude,
+    longitude,
+    accuracy
+) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Don't add points too close to previous point
+    |--------------------------------------------------------------------------
+    */
+
+    if (gpsPoints.length > 0) {
+
+        const previous =
+            gpsPoints[gpsPoints.length - 1];
+
+        const distance =
+            calculateDistance(
+                previous.lat,
+                previous.lng,
+                latitude,
+                longitude
+            );
+
+        /*
+        | Ignore movement smaller than 2 meters
+        */
+
+        if (distance < 2) {
+
+            return;
+
+        }
+
+    }
+
+
+    gpsPoints.push({
+
+        lat: latitude,
+        lng: longitude,
+        accuracy: accuracy,
+        timestamp:
+            new Date().toISOString()
+
+    });
+
+
+    drawLivePolygon();
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 6. Draw Polygon While Walking
+|--------------------------------------------------------------------------
+*/
+
+function drawLivePolygon() {
+
+    const coordinates =
+        gpsPoints.map(
+            point => [
+                point.lat,
+                point.lng
+            ]
+        );
+
+
+    if (polygon) {
+
+        polygon.remove();
+
+    }
+
+
+    if (coordinates.length >= 2) {
+
+        polygon =
+            L.polyline(
+                coordinates,
+                {
+                    color: "#1f6f43",
+                    weight: 4
+                }
+            ).addTo(map);
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 7. Finish Boundary
+|--------------------------------------------------------------------------
+*/
+
+document
+    .getElementById("finishBtn")
+    .addEventListener(
+        "click",
+        finishBoundary
+    );
+
+
+function finishBoundary() {
+
+    if (gpsPoints.length < 3) {
+
+        alert(
+            "You need at least 3 GPS points."
+        );
+
+        return;
+
+    }
+
+
+    capturing = false;
+
+
+    if (watchId !== null) {
+
+        navigator.geolocation.clearWatch(
+            watchId
+        );
+
+        watchId = null;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create closed polygon
+    |--------------------------------------------------------------------------
+    */
+
+    const coordinates =
+        gpsPoints.map(
+            point => [
+                point.lat,
+                point.lng
+            ]
+        );
+
+
+    coordinates.push(
+        coordinates[0]
+    );
+
+
+    if (polygon) {
+
+        polygon.remove();
+
+    }
+
+
+    polygon =
+        L.polygon(
+            coordinates,
+            {
+                color: "#1f6f43",
+                fillColor: "#1f6f43",
+                fillOpacity: 0.25,
+                weight: 3
+            }
+        ).addTo(map);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Area
+    |--------------------------------------------------------------------------
+    */
+
+    const turfCoordinates =
+        coordinates.map(
+            point => [
+                point[1],
+                point[0]
+            ]
+        );
+
+
+    const turfPolygon =
+        turf.polygon([
+            turfCoordinates
+        ]);
+
+
+    const areaSquareMeters =
+        turf.area(
+            turfPolygon
+        );
+
+
+    const hectares =
+        areaSquareMeters / 10000;
+
+
+    const acres =
+        hectares * 2.47105;
+
+
+    document.getElementById("area").innerText =
+        "Area: " +
+        acres.toFixed(2) +
+        " acres (" +
+        hectares.toFixed(2) +
+        " hectares)";
+
+
+    document.getElementById("status").innerText =
+        "✓ Boundary captured successfully";
+
+
+    document.getElementById("startBtn").disabled =
+        false;
+
+    document.getElementById("finishBtn").disabled =
+        true;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Print data for testing
+    |--------------------------------------------------------------------------
+    */
+
+    console.log(
+        "GPS Boundary:",
+        gpsPoints
+    );
+
+    console.log(
+        "Area:",
+        acres,
+        "acres"
+    );
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 8. GPS Error
+|--------------------------------------------------------------------------
+*/
+
+function handleGPSError(error) {
+
+    let message =
+        "Unable to get GPS location.";
+
+    if (error.code === 1) {
+
+        message =
+            "Location permission denied.";
+
+    } else if (error.code === 2) {
+
+        message =
+            "GPS location unavailable.";
+
+    } else if (error.code === 3) {
+
+        message =
+            "GPS request timed out.";
+
+    }
+
+
+    document.getElementById("status").innerText =
+        "🔴 " + message;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 9. Clear
+|--------------------------------------------------------------------------
+*/
+
+document
+    .getElementById("clearBtn")
+    .addEventListener(
+        "click",
+        clearBoundary
+    );
+
+
+function clearBoundary() {
+
+    if (watchId !== null) {
+
+        navigator.geolocation.clearWatch(
+            watchId
+        );
+
+        watchId = null;
+
+    }
+
+
+    if (gpsMarker) {
+
+        gpsMarker.remove();
+
+        gpsMarker = null;
+
+    }
+
+
+    if (accuracyCircle) {
+
+        accuracyCircle.remove();
+
+        accuracyCircle = null;
+
+    }
+
+
+    if (polygon) {
+
+        polygon.remove();
+
+        polygon = null;
+
+    }
+
+
+    gpsPoints = [];
+
+    capturing = false;
+
+
+    document.getElementById("startBtn").disabled =
+        false;
+
+    document.getElementById("finishBtn").disabled =
+        true;
+
+    document.getElementById("status").innerText =
+        "GPS not started";
+
+    document.getElementById("area").innerText =
+        "Area: -";
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 10. Calculate Distance
+|--------------------------------------------------------------------------
+*/
+
+function calculateDistance(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+) {
+
+    const R = 6371000;
+
+    const dLat =
+        (lat2 - lat1) *
+        Math.PI / 180;
+
+    const dLon =
+        (lon2 - lon1) *
+        Math.PI / 180;
+
+
+    const a =
+        Math.sin(dLat / 2) *
+        Math.sin(dLat / 2) +
+
+        Math.cos(
+            lat1 * Math.PI / 180
+        ) *
+
+        Math.cos(
+            lat2 * Math.PI / 180
+        ) *
+
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+
+    return R * c;
+
+}
+
+</script>
+
+</body>
+</html>
