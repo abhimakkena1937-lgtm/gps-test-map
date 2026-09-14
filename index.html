@@ -7,7 +7,7 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     >
 
     <title>GreenCarbon — Field Boundary Capture</title>
@@ -28,8 +28,7 @@
 
 
     <!-- =====================================================
-         TURF.JS
-         Used for accurate polygon area calculation
+         TURF
     ====================================================== -->
 
     <script
@@ -60,7 +59,7 @@
                 Helvetica,
                 sans-serif;
 
-            background: #f5f4ed;
+            background: #f7f6ef;
         }
 
 
@@ -76,9 +75,9 @@
             left: 0;
             right: 0;
 
-            height: 64px;
+            height: 58px;
 
-            z-index: 2000;
+            z-index: 3000;
 
             display: flex;
 
@@ -86,14 +85,14 @@
 
             justify-content: space-between;
 
-            padding: 0 24px;
+            padding: 0 18px;
 
             background: #123d2a;
 
             color: white;
 
             box-shadow:
-                0 2px 10px rgba(0, 0, 0, 0.22);
+                0 2px 12px rgba(0,0,0,0.25);
         }
 
 
@@ -103,18 +102,18 @@
 
             align-items: center;
 
-            gap: 10px;
+            gap: 9px;
 
-            font-size: 20px;
+            font-size: 18px;
 
-            font-weight: 600;
+            font-weight: 700;
         }
 
 
         .brand-icon {
 
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
 
             display: flex;
 
@@ -123,411 +122,17 @@
 
             border-radius: 50%;
 
-            background: #edf5ee;
+            background: #f0f6ef;
 
-            font-size: 20px;
+            font-size: 18px;
         }
 
 
         .header-title {
 
-            font-size: 13px;
-
-            opacity: 0.85;
-        }
-
-
-        /* =====================================================
-           SIDEBAR
-        ====================================================== */
-
-        .sidebar {
-
-            position: fixed;
-
-            top: 64px;
-
-            left: 0;
-
-            bottom: 0;
-
-            width: 360px;
-
-            z-index: 1500;
-
-            overflow-y: auto;
-
-            background: #faf9f3;
-
-            border-right: 1px solid #ddd;
-
-            padding: 24px;
-        }
-
-
-        .sidebar h1 {
-
-            margin: 0;
-
-            font-family: Georgia, serif;
-
-            font-size: 25px;
-
-            color: #163d2a;
-        }
-
-
-        .subtitle {
-
-            margin-top: 8px;
-
-            margin-bottom: 22px;
-
-            font-size: 13px;
-
-            line-height: 1.5;
-
-            color: #6c716d;
-        }
-
-
-        /* =====================================================
-           INPUTS
-        ====================================================== */
-
-        .field {
-
-            margin-bottom: 14px;
-        }
-
-
-        .field label {
-
-            display: block;
-
-            margin-bottom: 6px;
-
             font-size: 12px;
 
-            font-weight: 600;
-
-            color: #4e5851;
-        }
-
-
-        .field input {
-
-            width: 100%;
-
-            height: 40px;
-
-            padding: 0 12px;
-
-            border: 1px solid #d4d8d4;
-
-            border-radius: 7px;
-
-            background: white;
-
-            outline: none;
-
-            font-size: 13px;
-        }
-
-
-        .field input:focus {
-
-            border-color: #347b50;
-
-            box-shadow:
-                0 0 0 2px rgba(52, 123, 80, 0.12);
-        }
-
-
-        /* =====================================================
-           BUTTONS
-        ====================================================== */
-
-        button {
-
-            border: none;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-            font-size: 13px;
-
-            font-weight: 600;
-        }
-
-
-        .btn-location {
-
-            width: 100%;
-
-            height: 40px;
-
-            margin-bottom: 10px;
-
-            background: #e9f2eb;
-
-            color: #24683f;
-
-            border: 1px solid #c8ddcc;
-        }
-
-
-        .btn-location:hover {
-
-            background: #dfeee2;
-        }
-
-
-        .btn-start {
-
-            width: 100%;
-
-            height: 44px;
-
-            background: #2e7d4f;
-
-            color: white;
-        }
-
-
-        .btn-start:hover {
-
-            background: #24683f;
-        }
-
-
-        .btn-start:disabled {
-
-            background: #b8c3bb;
-
-            cursor: not-allowed;
-        }
-
-
-        .btn-finish {
-
-            width: 100%;
-
-            height: 44px;
-
-            margin-top: 9px;
-
-            background: #d8dad8;
-
-            color: #777;
-
-            cursor: not-allowed;
-        }
-
-
-        .btn-finish.active {
-
-            background: #347b50;
-
-            color: white;
-
-            cursor: pointer;
-        }
-
-
-        .btn-clear {
-
-            width: 100%;
-
-            height: 40px;
-
-            margin-top: 9px;
-
-            background: white;
-
-            color: #c64747;
-
-            border: 1px solid #dc7777;
-        }
-
-
-        .btn-clear:hover {
-
-            background: #fff4f4;
-        }
-
-
-        /* =====================================================
-           STATUS
-        ====================================================== */
-
-        .status-card {
-
-            margin-top: 20px;
-
-            padding: 15px;
-
-            background: white;
-
-            border: 1px solid #e0e2dd;
-
-            border-radius: 10px;
-        }
-
-
-        .status-title {
-
-            margin-bottom: 12px;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            color: #455148;
-        }
-
-
-        .status-row {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 9px;
-
-            font-size: 12px;
-        }
-
-
-        .status-row:last-child {
-
-            margin-bottom: 0;
-        }
-
-
-        .status-label {
-
-            color: #777;
-        }
-
-
-        .status-value {
-
-            color: #173d2a;
-
-            font-weight: 600;
-
-            text-align: right;
-        }
-
-
-        .gps-dot {
-
-            display: inline-block;
-
-            width: 8px;
-            height: 8px;
-
-            margin-right: 5px;
-
-            border-radius: 50%;
-
-            background: #aaa;
-        }
-
-
-        .gps-dot.active {
-
-            background: #2e9c59;
-        }
-
-
-        .gps-dot.error {
-
-            background: #d64b4b;
-        }
-
-
-        .gps-dot.searching {
-
-            background: #d9a329;
-        }
-
-
-        /* =====================================================
-           INSTRUCTIONS
-        ====================================================== */
-
-        .instructions {
-
-            margin-top: 18px;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            background: #edf6ef;
-        }
-
-
-        .instructions-title {
-
-            margin-bottom: 10px;
-
-            color: #24683f;
-
-            font-size: 12px;
-
-            font-weight: 700;
-        }
-
-
-        .instruction {
-
-            display: flex;
-
-            gap: 9px;
-
-            margin-bottom: 9px;
-
-            color: #59635c;
-
-            font-size: 12px;
-
-            line-height: 1.4;
-        }
-
-
-        .instruction:last-child {
-
-            margin-bottom: 0;
-        }
-
-
-        .number {
-
-            min-width: 20px;
-
-            height: 20px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #347b50;
-
-            color: white;
-
-            font-size: 10px;
-
-            font-weight: 700;
+            opacity: 0.9;
         }
 
 
@@ -539,12 +144,9 @@
 
             position: fixed;
 
-            top: 64px;
-
-            left: 360px;
-
+            top: 58px;
+            left: 0;
             right: 0;
-
             bottom: 0;
 
             z-index: 1;
@@ -559,13 +161,14 @@
 
             position: fixed;
 
-            top: 84px;
+            top: 72px;
+            left: 12px;
 
-            left: 380px;
+            width: 270px;
 
-            z-index: 1200;
+            height: 42px;
 
-            width: 300px;
+            z-index: 2000;
 
             display: flex;
 
@@ -576,7 +179,7 @@
             overflow: hidden;
 
             box-shadow:
-                0 3px 14px rgba(0, 0, 0, 0.2);
+                0 3px 14px rgba(0,0,0,0.25);
         }
 
 
@@ -584,13 +187,13 @@
 
             flex: 1;
 
-            height: 42px;
-
-            padding: 0 12px;
+            min-width: 0;
 
             border: none;
 
             outline: none;
+
+            padding: 0 12px;
 
             font-size: 12px;
         }
@@ -598,40 +201,451 @@
 
         .search-box button {
 
-            width: 55px;
+            width: 48px;
 
-            border-radius: 0;
+            border: none;
 
-            background: #246b45;
+            background: #267447;
 
             color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
         }
 
 
         /* =====================================================
-           MAP LOCATION BUTTON
+           MAP BUTTONS
         ====================================================== */
 
-        .locate-control {
+        .map-tools {
 
-            position: absolute;
+            position: fixed;
 
+            top: 72px;
             right: 12px;
 
-            top: 90px;
+            z-index: 2000;
 
-            z-index: 1000;
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .map-tool {
 
             width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.22);
+
+            font-size: 18px;
+
+            cursor: pointer;
+        }
+
+
+        .map-tool:hover {
+
+            background: #f1f6f2;
+        }
+
+
+        /* =====================================================
+           BOTTOM SHEET
+        ====================================================== */
+
+        .bottom-sheet {
+
+            position: fixed;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            z-index: 2500;
+
+            background: rgba(250,249,243,0.98);
+
+            border-radius: 22px 22px 0 0;
+
+            box-shadow:
+                0 -5px 25px rgba(0,0,0,0.2);
+
+            padding: 10px 16px 18px;
+
+            max-height: 46vh;
+
+            overflow-y: auto;
+        }
+
+
+        .handle {
+
+            width: 45px;
+            height: 5px;
+
+            margin: 0 auto 10px;
+
+            border-radius: 10px;
+
+            background: #b8b9b6;
+        }
+
+
+        .sheet-title {
+
+            margin: 0 0 4px;
+
+            font-family: Georgia, serif;
+
+            color: #163d2a;
+
+            font-size: 20px;
+        }
+
+
+        .sheet-subtitle {
+
+            margin: 0 0 12px;
+
+            color: #727873;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           FIELD INFORMATION
+        ====================================================== */
+
+        .field-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .field-input label {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #687069;
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+
+        .field-input input {
+
+            width: 100%;
+
+            height: 36px;
+
+            padding: 0 9px;
+
+            border: 1px solid #d5d8d3;
+
+            border-radius: 7px;
+
+            background: white;
+
+            outline: none;
+
+            font-size: 11px;
+        }
+
+
+        .field-input input:focus {
+
+            border-color: #32794d;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ====================================================== */
+
+        .status-card {
+
+            display: grid;
+
+            grid-template-columns:
+                1.2fr 0.8fr 1fr;
+
+            gap: 8px;
+
+            padding: 11px;
+
+            margin-bottom: 10px;
+
+            border-radius: 12px;
+
+            background: #edf7ef;
+
+            border: 1px solid #d8e9da;
+        }
+
+
+        .status-item {
+
+            min-width: 0;
+        }
+
+
+        .status-item + .status-item {
+
+            border-left: 1px solid #cbded0;
+
+            padding-left: 10px;
+        }
+
+
+        .status-label {
+
+            color: #69736c;
+
+            font-size: 10px;
+
+            margin-bottom: 3px;
+        }
+
+
+        .status-value {
+
+            color: #173d2a;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .status-small {
+
+            color: #66716a;
+
+            font-size: 10px;
+
+            margin-top: 2px;
+        }
+
+
+        .gps-dot {
+
+            display: inline-block;
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            margin-right: 4px;
+
+            background: #d2a52d;
+        }
+
+
+        .gps-dot.good {
+
+            background: #2e9c59;
+        }
+
+
+        .gps-dot.bad {
+
+            background: #d64b4b;
+        }
+
+
+        /* =====================================================
+           ACTION BUTTONS
+        ====================================================== */
+
+        .actions {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 0.7fr;
+
+            gap: 8px;
+        }
+
+
+        .action-btn {
 
             height: 42px;
 
             border-radius: 8px;
 
-            background: white;
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            border: none;
+        }
+
+
+        .start {
+
+            background: #2e7d4f;
+
+            color: white;
+        }
+
+
+        .start:disabled {
+
+            background: #a9c7b2;
+
+            color: white;
+
+            cursor: not-allowed;
+        }
+
+
+        .finish {
+
+            background: #d4d7d5;
+
+            color: #777;
+
+            cursor: not-allowed;
+        }
+
+
+        .finish.active {
+
+            background: #087a3d;
+
+            color: white;
+
+            cursor: pointer;
 
             box-shadow:
-                0 2px 10px rgba(0,0,0,0.25);
+                0 2px 8px rgba(8,122,61,0.25);
+        }
+
+
+        .clear {
+
+            background: white;
+
+            color: #c84646;
+
+            border: 1px solid #df7777;
+
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ====================================================== */
+
+        .message {
+
+            margin-top: 9px;
+
+            padding: 9px 11px;
+
+            border-radius: 8px;
+
+            background: #edf4fb;
+
+            color: #41627e;
+
+            font-size: 10px;
+
+            line-height: 1.4;
+        }
+
+
+        .message.success {
+
+            background: #e8f5eb;
+
+            color: #24683f;
+        }
+
+
+        .message.warning {
+
+            background: #fff6df;
+
+            color: #765e22;
+        }
+
+
+        /* =====================================================
+           STEPS
+        ====================================================== */
+
+        .steps {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 4px;
+
+            margin-top: 10px;
+
+            padding: 10px;
+
+            border-radius: 10px;
+
+            background: #eef7ef;
+        }
+
+
+        .step {
+
+            text-align: center;
+
+            color: #59645d;
+
+            font-size: 9px;
+
+            line-height: 1.25;
+        }
+
+
+        .step-number {
+
+            width: 20px;
+            height: 20px;
+
+            margin: 0 auto 4px;
 
             display: flex;
 
@@ -639,94 +653,39 @@
 
             justify-content: center;
 
-            cursor: pointer;
+            border-radius: 50%;
 
-            font-size: 19px;
-        }
+            background: #2f7d4e;
 
+            color: white;
 
-        .locate-control:hover {
+            font-size: 9px;
 
-            background: #f2f7f3;
+            font-weight: 700;
         }
 
 
         /* =====================================================
-           LEGEND
+           AREA LABEL
         ====================================================== */
 
-        .legend {
+        .area-label {
 
-            position: fixed;
+            padding: 8px 11px;
 
-            right: 20px;
+            border-radius: 7px;
 
-            bottom: 25px;
+            background: rgba(12,65,35,0.88);
 
-            z-index: 1000;
+            color: white;
 
-            padding: 12px 15px;
+            text-align: center;
 
-            background: white;
+            font-size: 12px;
 
-            border-radius: 8px;
+            font-weight: 700;
 
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.2);
-
-            font-size: 11px;
-        }
-
-
-        .legend-row {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            margin-bottom: 7px;
-        }
-
-
-        .legend-row:last-child {
-
-            margin-bottom: 0;
-        }
-
-
-        .legend-point {
-
-            width: 10px;
-
-            height: 10px;
-
-            border-radius: 50%;
-
-            background: #2e9c59;
-        }
-
-
-        .legend-line {
-
-            width: 20px;
-
-            height: 3px;
-
-            background: #2e7d4f;
-        }
-
-
-        .legend-area {
-
-            width: 14px;
-
-            height: 10px;
-
-            border: 2px solid #2e7d4f;
-
-            background: rgba(46,125,79,0.18);
+            white-space: nowrap;
         }
 
 
@@ -738,15 +697,18 @@
 
             position: fixed;
 
-            right: 25px;
+            left: 50%;
 
-            bottom: 25px;
+            bottom: calc(46vh + 15px);
 
-            z-index: 3000;
+            transform:
+                translate(-50%, 15px);
 
-            max-width: 340px;
+            z-index: 4000;
 
-            padding: 12px 17px;
+            max-width: 90%;
+
+            padding: 10px 15px;
 
             border-radius: 8px;
 
@@ -754,18 +716,15 @@
 
             color: white;
 
-            font-size: 12px;
+            font-size: 11px;
 
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.25);
+            text-align: center;
 
             opacity: 0;
 
-            transform: translateY(10px);
-
-            transition: 0.3s;
-
             pointer-events: none;
+
+            transition: 0.25s;
         }
 
 
@@ -773,161 +732,101 @@
 
             opacity: 1;
 
-            transform: translateY(0);
+            transform:
+                translate(-50%, 0);
         }
 
 
         /* =====================================================
-           MOBILE
+           DESKTOP
         ====================================================== */
 
-        @media (max-width: 800px) {
+        @media (min-width: 801px) {
 
-            .header {
+            .bottom-sheet {
 
-                height: 56px;
+                left: 20px;
+                right: auto;
 
-                padding: 0 14px;
-            }
+                bottom: 20px;
 
+                width: 430px;
 
-            .brand {
+                max-height: 78vh;
 
-                font-size: 17px;
-            }
+                border-radius: 16px;
 
+                padding: 18px;
 
-            .header-title {
-
-                display: none;
-            }
-
-
-            .sidebar {
-
-                top: 56px;
-
-                width: 100%;
-
-                height: auto;
-
-                max-height: 48vh;
-
-                bottom: auto;
-
-                border-right: none;
-
-                border-bottom: 1px solid #ddd;
-
-                padding: 14px;
-            }
-
-
-            .sidebar h1 {
-
-                font-size: 20px;
-            }
-
-
-            .subtitle {
-
-                margin-top: 5px;
-
-                margin-bottom: 12px;
-            }
-
-
-            .field {
-
-                margin-bottom: 8px;
-            }
-
-
-            .field input {
-
-                height: 36px;
-            }
-
-
-            .btn-location {
-
-                height: 38px;
-
-                margin-bottom: 7px;
-            }
-
-
-            .btn-start {
-
-                height: 40px;
-            }
-
-
-            .btn-finish {
-
-                height: 40px;
-
-                margin-top: 7px;
-            }
-
-
-            .btn-clear {
-
-                height: 36px;
-
-                margin-top: 7px;
-            }
-
-
-            .status-card {
-
-                margin-top: 12px;
-
-                padding: 12px;
-            }
-
-
-            .instructions {
-
-                display: none;
-            }
-
-
-            #map {
-
-                top: 48vh;
-
-                left: 0;
-
-                right: 0;
-
-                bottom: 0;
             }
 
 
             .search-box {
 
-                top: calc(48vh + 10px);
+                left: 25px;
 
-                left: 10px;
-
-                width: 250px;
+                top: 78px;
             }
 
 
-            .locate-control {
+            .map-tools {
 
-                top: calc(48vh + 10px);
+                top: 78px;
 
-                right: 10px;
+                right: 20px;
             }
 
 
-            .legend {
+            .toast {
 
-                right: 10px;
+                bottom: 30px;
 
-                bottom: 12px;
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+        ====================================================== */
+
+        @media (max-width: 380px) {
+
+            .field-grid {
+
+                gap: 5px;
+            }
+
+
+            .bottom-sheet {
+
+                padding-left: 11px;
+
+                padding-right: 11px;
+            }
+
+
+            .actions {
+
+                gap: 5px;
+            }
+
+
+            .action-btn {
+
+                font-size: 10px;
+            }
+
+
+            .steps {
+
+                padding: 7px 4px;
+            }
+
+
+            .step {
+
+                font-size: 8px;
             }
 
         }
@@ -968,286 +867,10 @@
 
 
 <!-- =========================================================
-     SIDEBAR
+     MAP
 ========================================================= -->
 
-<aside class="sidebar">
-
-    <h1>
-        Capture Field Boundary
-    </h1>
-
-
-    <div class="subtitle">
-
-        Use your phone's GPS to locate the field
-        and walk around its perimeter.
-
-    </div>
-
-
-    <!-- Farmer ID -->
-
-    <div class="field">
-
-        <label>
-            Farmer ID
-        </label>
-
-        <input
-            id="farmerId"
-            type="text"
-            placeholder="Example: FARM-AP-001"
-        >
-
-    </div>
-
-
-    <!-- Survey Number -->
-
-    <div class="field">
-
-        <label>
-            Survey Number
-        </label>
-
-        <input
-            id="surveyNumber"
-            type="text"
-            placeholder="Example: 123/4A"
-        >
-
-    </div>
-
-
-    <!-- Village -->
-
-    <div class="field">
-
-        <label>
-            Village
-        </label>
-
-        <input
-            id="village"
-            type="text"
-            placeholder="Village name"
-        >
-
-    </div>
-
-
-    <!-- Locate -->
-
-    <button
-        class="btn-location"
-        onclick="locateUser(true)"
-    >
-
-        📍 Go To My Current Location
-
-    </button>
-
-
-    <!-- Start -->
-
-    <button
-        id="startBtn"
-        class="btn-start"
-        onclick="startBoundary()"
-    >
-
-        🟢 Start Boundary
-
-    </button>
-
-
-    <!-- Finish -->
-
-    <button
-        id="finishBtn"
-        class="btn-finish"
-        onclick="finishBoundary()"
-        disabled
-    >
-
-        ⚪ Finish Boundary
-
-    </button>
-
-
-    <!-- Clear -->
-
-    <button
-        class="btn-clear"
-        onclick="clearBoundary()"
-    >
-
-        🔴 Clear
-
-    </button>
-
-
-
-    <!-- =====================================================
-         STATUS
-    ====================================================== -->
-
-    <div class="status-card">
-
-        <div class="status-title">
-            GPS & Boundary Status
-        </div>
-
-
-        <div class="status-row">
-
-            <span class="status-label">
-                GPS
-            </span>
-
-            <span
-                id="gpsStatus"
-                class="status-value"
-            >
-
-                <span class="gps-dot searching"></span>
-                Finding location...
-
-            </span>
-
-        </div>
-
-
-        <div class="status-row">
-
-            <span class="status-label">
-                Accuracy
-            </span>
-
-            <span
-                id="accuracy"
-                class="status-value"
-            >
-                --
-            </span>
-
-        </div>
-
-
-        <div class="status-row">
-
-            <span class="status-label">
-                Points
-            </span>
-
-            <span
-                id="points"
-                class="status-value"
-            >
-                0
-            </span>
-
-        </div>
-
-
-        <div class="status-row">
-
-            <span class="status-label">
-                Area
-            </span>
-
-            <span
-                id="area"
-                class="status-value"
-            >
-                --
-            </span>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         INSTRUCTIONS
-    ====================================================== -->
-
-    <div class="instructions">
-
-        <div class="instructions-title">
-            HOW TO CAPTURE
-        </div>
-
-
-        <div class="instruction">
-
-            <span class="number">
-                1
-            </span>
-
-            <span>
-                Go outdoors and wait for a good GPS signal.
-            </span>
-
-        </div>
-
-
-        <div class="instruction">
-
-            <span class="number">
-                2
-            </span>
-
-            <span>
-                Press Start Boundary.
-            </span>
-
-        </div>
-
-
-        <div class="instruction">
-
-            <span class="number">
-                3
-            </span>
-
-            <span>
-                Walk around the complete field perimeter.
-            </span>
-
-        </div>
-
-
-        <div class="instruction">
-
-            <span class="number">
-                4
-            </span>
-
-            <span>
-                Return near the starting point.
-            </span>
-
-        </div>
-
-
-        <div class="instruction">
-
-            <span class="number">
-                5
-            </span>
-
-            <span>
-                Press Finish Boundary.
-            </span>
-
-        </div>
-
-    </div>
-
-</aside>
+<div id="map"></div>
 
 
 
@@ -1263,7 +886,9 @@
         placeholder="Search village / location..."
     >
 
-    <button onclick="searchLocation()">
+    <button
+        onclick="searchLocation()"
+    >
         🔎
     </button>
 
@@ -1272,62 +897,324 @@
 
 
 <!-- =========================================================
-     MAP
+     MAP TOOLS
 ========================================================= -->
 
-<div id="map"></div>
+<div class="map-tools">
+
+    <button
+        class="map-tool"
+        onclick="goToCurrentLocation()"
+        title="Current location"
+    >
+        📍
+    </button>
 
 
+    <button
+        class="map-tool"
+        onclick="zoomIn()"
+        title="Zoom in"
+    >
+        +
+    </button>
 
-<!-- =========================================================
-     LOCATE CONTROL
-========================================================= -->
 
-<div
-    class="locate-control"
-    onclick="locateUser(true)"
-    title="Go to current location"
->
+    <button
+        class="map-tool"
+        onclick="zoomOut()"
+        title="Zoom out"
+    >
+        −
+    </button>
 
-    📍
+
+    <button
+        class="map-tool"
+        onclick="map.invalidateSize()"
+        title="Refresh map"
+    >
+        ⟳
+    </button>
 
 </div>
 
 
 
 <!-- =========================================================
-     LEGEND
+     BOTTOM SHEET
 ========================================================= -->
 
-<div class="legend">
+<section class="bottom-sheet">
 
-    <div class="legend-row">
+    <div class="handle"></div>
 
-        <span class="legend-point"></span>
 
-        GPS Point
+    <h1 class="sheet-title">
+        Capture Field Boundary
+    </h1>
+
+
+    <p class="sheet-subtitle">
+        Locate the field, start GPS tracking, walk around
+        the perimeter, then finish the boundary.
+    </p>
+
+
+
+    <!-- =====================================================
+         FIELD INFORMATION
+    ====================================================== -->
+
+    <div class="field-grid">
+
+        <div class="field-input">
+
+            <label>
+                Farmer ID
+            </label>
+
+            <input
+                id="farmerId"
+                type="text"
+                placeholder="FARM-AP-001"
+            >
+
+        </div>
+
+
+        <div class="field-input">
+
+            <label>
+                Survey Number
+            </label>
+
+            <input
+                id="surveyNumber"
+                type="text"
+                placeholder="123/4A"
+            >
+
+        </div>
+
+
+        <div class="field-input">
+
+            <label>
+                Village
+            </label>
+
+            <input
+                id="village"
+                type="text"
+                placeholder="Village"
+            >
+
+        </div>
 
     </div>
 
 
-    <div class="legend-row">
 
-        <span class="legend-line"></span>
+    <!-- =====================================================
+         STATUS
+    ====================================================== -->
 
-        Field Boundary
+    <div class="status-card">
+
+
+        <div class="status-item">
+
+            <div class="status-label">
+                GPS
+            </div>
+
+            <div
+                id="gpsStatus"
+                class="status-value"
+            >
+
+                <span class="gps-dot"></span>
+                Finding...
+
+            </div>
+
+            <div
+                id="accuracyText"
+                class="status-small"
+            >
+                Accuracy: --
+
+            </div>
+
+        </div>
+
+
+        <div class="status-item">
+
+            <div class="status-label">
+                Points
+            </div>
+
+            <div
+                id="pointsText"
+                class="status-value"
+            >
+                0
+            </div>
+
+            <div class="status-small">
+                GPS points
+            </div>
+
+        </div>
+
+
+        <div class="status-item">
+
+            <div class="status-label">
+                Area
+            </div>
+
+            <div
+                id="areaText"
+                class="status-value"
+            >
+                --
+            </div>
+
+            <div class="status-small">
+                Live calculation
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div class="legend-row">
 
-        <span class="legend-area"></span>
+    <!-- =====================================================
+         ACTIONS
+    ====================================================== -->
 
-        Field Area
+    <div class="actions">
+
+
+        <button
+            id="startBtn"
+            class="action-btn start"
+            onclick="startBoundary()"
+        >
+
+            🟢 Start Boundary
+
+        </button>
+
+
+        <button
+            id="finishBtn"
+            class="action-btn finish"
+            onclick="finishBoundary()"
+            disabled
+        >
+
+            ✓ Finish Boundary
+
+        </button>
+
+
+        <button
+            class="action-btn clear"
+            onclick="clearBoundary()"
+        >
+
+            🗑 Clear
+
+        </button>
 
     </div>
 
-</div>
+
+
+    <!-- =====================================================
+         MESSAGE
+    ====================================================== -->
+
+    <div
+        id="message"
+        class="message"
+    >
+
+        📍 Finding your current location.
+        Please allow location permission.
+
+    </div>
+
+
+
+    <!-- =====================================================
+         STEPS
+    ====================================================== -->
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">
+                1
+            </div>
+
+            Go outdoors
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                2
+            </div>
+
+            Start Boundary
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            Walk perimeter
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                4
+            </div>
+
+            Return to start
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                5
+            </div>
+
+            Finish Boundary
+
+        </div>
+
+    </div>
+
+</section>
 
 
 
@@ -1346,27 +1233,26 @@
 
 
 /* ============================================================
-   MAP
+   MAP INITIALIZATION
 ============================================================ */
 
 
 /*
- * Initial map position.
- *
- * This is only used until GPS is obtained.
+ * Starting location is only a fallback.
+ * GPS will replace it automatically.
  */
 
 const map = L.map(
     "map",
     {
 
-        zoomControl: true,
+        zoomControl: false,
 
         attributionControl: true,
 
-        maxZoom: 18,
+        minZoom: 3,
 
-        minZoom: 3
+        maxZoom: 19
 
     }
 ).setView(
@@ -1383,14 +1269,6 @@ const map = L.map(
    SATELLITE
 ============================================================ */
 
-
-/*
- * Real satellite imagery.
- *
- * maxNativeZoom tells Leaflet not to request
- * satellite tiles beyond this level.
- */
-
 const satellite = L.tileLayer(
 
     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
@@ -1399,9 +1277,9 @@ const satellite = L.tileLayer(
 
         minZoom: 3,
 
-        maxZoom: 18,
+        maxZoom: 19,
 
-        maxNativeZoom: 18,
+        maxNativeZoom: 19,
 
         attribution:
             "Tiles © Esri"
@@ -1424,9 +1302,11 @@ const labels = L.tileLayer(
 
         minZoom: 3,
 
-        maxZoom: 18,
+        maxZoom: 19,
 
-        maxNativeZoom: 18,
+        maxNativeZoom: 19,
+
+        opacity: 0.85,
 
         attribution:
             "Labels © Esri"
@@ -1480,36 +1360,30 @@ const topographic = L.tileLayer(
 
 
 /* ============================================================
-   LAYER CONTROL
+   LAYERS
 ============================================================ */
-
-const baseMaps = {
-
-    "Satellite — Real Imagery":
-        satellite,
-
-    "Outdoor — OpenStreetMap":
-        outdoor,
-
-    "Topographic":
-        topographic
-
-};
-
-
-const overlays = {
-
-    "Satellite + Labels":
-        labels
-
-};
-
 
 L.control.layers(
 
-    baseMaps,
+    {
 
-    overlays,
+        "Satellite — Real Imagery":
+            satellite,
+
+        "Outdoor — OpenStreetMap":
+            outdoor,
+
+        "Topographic":
+            topographic
+
+    },
+
+    {
+
+        "Satellite + Labels":
+            labels
+
+    },
 
     {
 
@@ -1522,7 +1396,7 @@ L.control.layers(
 
 
 /* ============================================================
-   GPS VARIABLES
+   VARIABLES
 ============================================================ */
 
 let watchId = null;
@@ -1541,14 +1415,30 @@ let boundaryLine = null;
 
 let boundaryPolygon = null;
 
+let areaLabel = null;
+
 let capturing = false;
 
 let hasLocatedUser = false;
 
 
+/*
+ * Last accepted GPS point.
+ */
+
+let lastAcceptedPoint = null;
+
+
+/*
+ * Best accuracy received.
+ */
+
+let bestAccuracy = Infinity;
+
+
 
 /* ============================================================
-   GPS OPTIONS
+   GPS SETTINGS
 ============================================================ */
 
 const gpsOptions = {
@@ -1560,6 +1450,24 @@ const gpsOptions = {
     timeout: 60000
 
 };
+
+
+/*
+ * For field capture we accept GPS
+ * up to 12 metres accuracy.
+ *
+ * This is a starting threshold.
+ * We can tune it after real field testing.
+ */
+
+const MAX_CAPTURE_ACCURACY = 12;
+
+
+/*
+ * Minimum distance between GPS points.
+ */
+
+const MIN_POINT_DISTANCE = 2;
 
 
 
@@ -1576,13 +1484,14 @@ function locateUser(
         !navigator.geolocation
     ) {
 
-        showToast(
-            "GPS is not supported by this browser."
-        );
-
         setGPSStatus(
             "GPS unsupported",
-            false
+            "bad"
+        );
+
+        showMessage(
+            "Your browser does not support GPS.",
+            "warning"
         );
 
         return;
@@ -1591,20 +1500,16 @@ function locateUser(
 
 
     setGPSStatus(
-        "Finding location...",
-        "searching"
+        "Finding...",
+        ""
     );
 
-
-    /*
-     * Ask browser for current position.
-     */
 
     navigator.geolocation.getCurrentPosition(
 
         function(position) {
 
-            handleGPSPosition(
+            processGPSPosition(
                 position,
                 moveMap
             );
@@ -1628,10 +1533,10 @@ function locateUser(
 
 
 /* ============================================================
-   HANDLE GPS POSITION
+   PROCESS GPS POSITION
 ============================================================ */
 
-function handleGPSPosition(
+function processGPSPosition(
 
     position,
 
@@ -1667,7 +1572,7 @@ function handleGPSPosition(
 
 
     console.log(
-        "GPS:",
+        "GPS POSITION:",
         lat,
         lng,
         "Accuracy:",
@@ -1676,17 +1581,33 @@ function handleGPSPosition(
 
 
     /*
-     * Update accuracy.
+     * Track best accuracy.
      */
 
-    document.getElementById(
-        "accuracy"
-    ).textContent =
-        accuracy.toFixed(1) + " m";
+    if (
+        accuracy < bestAccuracy
+    ) {
+
+        bestAccuracy =
+            accuracy;
+
+    }
 
 
     /*
-     * Update marker.
+     * Update UI.
+     */
+
+    document.getElementById(
+        "accuracyText"
+    ).textContent =
+        "Accuracy: " +
+        accuracy.toFixed(1) +
+        " m";
+
+
+    /*
+     * Update GPS marker.
      */
 
     updateGPSMarker(
@@ -1697,12 +1618,8 @@ function handleGPSPosition(
 
 
     /*
-     * Move map to current position.
-     *
-     * This happens when:
-     *
-     * - page loads
-     * - user presses Go To My Current Location
+     * Move to current position
+     * the first time GPS is obtained.
      */
 
     if (
@@ -1740,7 +1657,7 @@ function handleGPSPosition(
 
         setGPSStatus(
             "Excellent",
-            "active"
+            "good"
         );
 
     }
@@ -1751,20 +1668,18 @@ function handleGPSPosition(
 
         setGPSStatus(
             "Good",
-            "active"
+            "good"
         );
 
     }
 
     else if (
-        accuracy <= 25
+        accuracy <= 20
     ) {
 
         setGPSStatus(
-            "Fair — " +
-            accuracy.toFixed(0) +
-            " m",
-            "searching"
+            "Fair",
+            ""
         );
 
     }
@@ -1772,23 +1687,21 @@ function handleGPSPosition(
     else {
 
         setGPSStatus(
-            "Weak — " +
-            accuracy.toFixed(0) +
-            " m",
-            "error"
+            "Weak",
+            "bad"
         );
 
     }
 
 
     /*
-     * Add boundary point only
-     * when recording.
+     * Add point only when boundary capture
+     * is running.
      */
 
     if (
         capturing &&
-        accuracy <= 10
+        accuracy <= MAX_CAPTURE_ACCURACY
     ) {
 
         addBoundaryPoint(
@@ -1822,7 +1735,7 @@ function updateGPSMarker(
 
 
     /*
-     * GPS marker
+     * Blue current-location marker.
      */
 
     if (
@@ -1839,6 +1752,10 @@ function updateGPSMarker(
                     radius: 7,
 
                     weight: 3,
+
+                    color: "#ffffff",
+
+                    fillColor: "#1685e5",
 
                     fillOpacity: 1
 
@@ -1858,7 +1775,7 @@ function updateGPSMarker(
 
 
     /*
-     * Accuracy circle
+     * GPS accuracy circle.
      */
 
     if (
@@ -1874,9 +1791,13 @@ function updateGPSMarker(
 
                     radius: accuracy,
 
+                    color: "#1685e5",
+
                     weight: 1,
 
-                    fillOpacity: 0.08
+                    fillColor: "#1685e5",
+
+                    fillOpacity: 0.12
 
                 }
 
@@ -1895,6 +1816,47 @@ function updateGPSMarker(
         );
 
     }
+
+}
+
+
+
+/* ============================================================
+   GO TO CURRENT LOCATION
+============================================================ */
+
+function goToCurrentLocation() {
+
+
+    if (
+        currentPosition
+    ) {
+
+        map.flyTo(
+
+            [
+                currentPosition.lat,
+                currentPosition.lng
+            ],
+
+            18,
+
+            {
+
+                duration: 1.5
+
+            }
+
+        );
+
+        return;
+
+    }
+
+
+    locateUser(
+        true
+    );
 
 }
 
@@ -1920,27 +1882,41 @@ function startBoundary() {
     }
 
 
-    capturing = true;
-
-
-    boundaryPoints = [];
-
+    /*
+     * Reset previous boundary.
+     */
 
     clearBoundaryObjects();
 
 
+    boundaryPoints = [];
+
+    pointMarkers = [];
+
+    lastAcceptedPoint = null;
+
+    bestAccuracy = Infinity;
+
+
     document.getElementById(
-        "points"
+        "pointsText"
     ).textContent = "0";
 
 
     document.getElementById(
-        "area"
+        "areaText"
     ).textContent = "--";
 
 
     /*
-     * Disable Start.
+     * Set capture mode.
+     */
+
+    capturing = true;
+
+
+    /*
+     * Start button disabled.
      */
 
     document.getElementById(
@@ -1949,7 +1925,43 @@ function startBoundary() {
 
 
     /*
-     * GPS watcher.
+     * Finish initially disabled.
+     *
+     * It becomes active automatically
+     * after 3 valid points.
+     */
+
+    document.getElementById(
+        "finishBtn"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "finishBtn"
+    ).classList.remove(
+        "active"
+    );
+
+
+    setGPSStatus(
+        "Recording...",
+        "good"
+    );
+
+
+    showMessage(
+        "Boundary recording started. Walk around the complete field perimeter.",
+        "success"
+    );
+
+
+    showToast(
+        "Boundary recording started."
+    );
+
+
+    /*
+     * Clear any previous watcher.
      */
 
     if (
@@ -1963,12 +1975,16 @@ function startBoundary() {
     }
 
 
+    /*
+     * Start continuous GPS.
+     */
+
     watchId =
         navigator.geolocation.watchPosition(
 
             function(position) {
 
-                handleGPSPosition(
+                processGPSPosition(
                     position,
                     false
                 );
@@ -1987,23 +2003,12 @@ function startBoundary() {
 
         );
 
-
-    setGPSStatus(
-        "Recording boundary...",
-        "active"
-    );
-
-
-    showToast(
-        "Boundary recording started. Walk around the field."
-    );
-
 }
 
 
 
 /* ============================================================
-   ADD BOUNDARY POINT
+   ADD GPS BOUNDARY POINT
 ============================================================ */
 
 function addBoundaryPoint(
@@ -2023,45 +2028,128 @@ function addBoundaryPoint(
 
 
     /*
-     * Do not add points closer than 2 metres.
+     * First point.
      */
 
     if (
-        boundaryPoints.length > 0
+        boundaryPoints.length === 0
     ) {
 
-        const previous =
-            boundaryPoints[
-                boundaryPoints.length - 1
-            ];
+        boundaryPoints.push(
+            point
+        );
 
+        lastAcceptedPoint =
+            point;
 
-        const distance =
-            map.distance(
-                previous,
-                point
-            );
+        addPointMarker(
+            point
+        );
 
+        updateBoundaryLine();
 
-        if (
-            distance < 2
-        ) {
+        updatePointCount();
 
-            return;
-
-        }
+        return;
 
     }
 
+
+    /*
+     * Distance from previous point.
+     */
+
+    const distance =
+        map.distance(
+
+            lastAcceptedPoint,
+
+            point
+
+        );
+
+
+    /*
+     * Don't collect thousands
+     * of almost identical points.
+     */
+
+    if (
+        distance <
+        MIN_POINT_DISTANCE
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * Add point.
+     */
 
     boundaryPoints.push(
         point
     );
 
 
+    lastAcceptedPoint =
+        point;
+
+
+    addPointMarker(
+        point
+    );
+
+
+    updateBoundaryLine();
+
+
+    updatePointCount();
+
+
     /*
-     * Draw GPS point.
+     * ======================================================
+     * IMPORTANT FIX
+     *
+     * Finish becomes active as soon
+     * as 3 valid points exist.
+     * ======================================================
      */
+
+    if (
+        boundaryPoints.length >= 3
+    ) {
+
+        enableFinishButton();
+
+    }
+
+
+    /*
+     * Live area.
+     */
+
+    if (
+        boundaryPoints.length >= 3
+    ) {
+
+        calculateLiveArea();
+
+    }
+
+}
+
+
+
+/* ============================================================
+   ADD POINT MARKER
+============================================================ */
+
+function addPointMarker(
+    point
+) {
+
 
     const marker =
         L.circleMarker(
@@ -2072,7 +2160,11 @@ function addBoundaryPoint(
 
                 radius: 3,
 
+                color: "#ffffff",
+
                 weight: 1,
+
+                fillColor: "#1685e5",
 
                 fillOpacity: 1
 
@@ -2085,10 +2177,16 @@ function addBoundaryPoint(
         marker
     );
 
+}
 
-    /*
-     * Draw live boundary.
-     */
+
+
+/* ============================================================
+   UPDATE LIVE LINE
+============================================================ */
+
+function updateBoundaryLine() {
+
 
     if (
         !boundaryLine
@@ -2101,9 +2199,13 @@ function addBoundaryPoint(
 
                 {
 
-                    weight: 3,
+                    color: "#087a3d",
 
-                    smoothFactor: 1
+                    weight: 4,
+
+                    opacity: 0.95,
+
+                    lineJoin: "round"
 
                 }
 
@@ -2119,15 +2221,295 @@ function addBoundaryPoint(
 
     }
 
+}
 
-    /*
-     * Update point count.
-     */
+
+
+/* ============================================================
+   UPDATE POINT COUNT
+============================================================ */
+
+function updatePointCount() {
+
 
     document.getElementById(
-        "points"
+        "pointsText"
     ).textContent =
         boundaryPoints.length;
+
+
+}
+
+
+
+/* ============================================================
+   ENABLE FINISH
+============================================================ */
+
+function enableFinishButton() {
+
+
+    const button =
+        document.getElementById(
+            "finishBtn"
+        );
+
+
+    button.disabled = false;
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    /*
+     * Update instruction.
+     */
+
+    showMessage(
+        "✓ Boundary has enough GPS points. Continue walking around the field, then tap Finish Boundary.",
+        "success"
+    );
+
+}
+
+
+
+/* ============================================================
+   LIVE AREA
+============================================================ */
+
+function calculateLiveArea() {
+
+
+    if (
+        boundaryPoints.length < 3
+    ) {
+
+        return;
+
+    }
+
+
+    const coordinates =
+        boundaryPoints.map(
+
+            function(point) {
+
+                return [
+                    point.lng,
+                    point.lat
+                ];
+
+            }
+
+        );
+
+
+    /*
+     * Close polygon temporarily.
+     */
+
+    coordinates.push(
+        coordinates[0]
+    );
+
+
+    try {
+
+
+        const polygon =
+            turf.polygon(
+                [
+                    coordinates
+                ]
+            );
+
+
+        const squareMeters =
+            turf.area(
+                polygon
+            );
+
+
+        const acres =
+            squareMeters *
+            0.000247105;
+
+
+        const hectares =
+            squareMeters /
+            10000;
+
+
+        document.getElementById(
+            "areaText"
+        ).textContent =
+            acres.toFixed(2) +
+            " ac";
+
+
+        /*
+         * Update map label.
+         */
+
+        updateAreaLabel(
+
+            acres,
+
+            hectares
+
+        );
+
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            "Area calculation error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* ============================================================
+   AREA LABEL
+============================================================ */
+
+function updateAreaLabel(
+
+    acres,
+
+    hectares
+
+) {
+
+
+    /*
+     * Remove old label.
+     */
+
+    if (
+        areaLabel
+    ) {
+
+        map.removeLayer(
+            areaLabel
+        );
+
+        areaLabel = null;
+
+    }
+
+
+    /*
+     * Need at least 3 points.
+     */
+
+    if (
+        boundaryPoints.length < 3
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * Calculate polygon center.
+     */
+
+    const latSum =
+        boundaryPoints.reduce(
+
+            function(sum, point) {
+
+                return sum + point.lat;
+
+            },
+
+            0
+
+        );
+
+
+    const lngSum =
+        boundaryPoints.reduce(
+
+            function(sum, point) {
+
+                return sum + point.lng;
+
+            },
+
+            0
+
+        );
+
+
+    const center =
+        L.latLng(
+
+            latSum /
+            boundaryPoints.length,
+
+            lngSum /
+            boundaryPoints.length
+
+        );
+
+
+    const html =
+
+        acres.toFixed(2) +
+        " acres<br>" +
+
+        hectares.toFixed(2) +
+        " ha";
+
+
+    areaLabel =
+        L.marker(
+
+            center,
+
+            {
+
+                icon:
+                    L.divIcon(
+
+                        {
+
+                            className: "",
+
+                            html:
+                                '<div class="area-label">' +
+                                html +
+                                '</div>',
+
+                            iconSize:
+                                [110, 45],
+
+                            iconAnchor:
+                                [55, 22]
+
+                        }
+
+                    ),
+
+                interactive: false
+
+            }
+
+        ).addTo(map);
 
 }
 
@@ -2140,18 +2522,26 @@ function addBoundaryPoint(
 function finishBoundary() {
 
 
+    /*
+     * Safety check.
+     */
+
     if (
         boundaryPoints.length < 3
     ) {
 
         showToast(
-            "At least 3 GPS points are required."
+            "At least 3 valid GPS points are required."
         );
 
         return;
 
     }
 
+
+    /*
+     * Stop capture.
+     */
 
     capturing = false;
 
@@ -2174,7 +2564,7 @@ function finishBoundary() {
 
 
     /*
-     * Close polygon.
+     * Create closed polygon.
      */
 
     const polygonPoints =
@@ -2202,7 +2592,7 @@ function finishBoundary() {
 
 
     /*
-     * Create field polygon.
+     * Create final polygon.
      */
 
     boundaryPolygon =
@@ -2212,9 +2602,15 @@ function finishBoundary() {
 
             {
 
+                color: "#087a3d",
+
                 weight: 3,
 
-                fillOpacity: 0.18
+                opacity: 1,
+
+                fillColor: "#22a65a",
+
+                fillOpacity: 0.22
 
             }
 
@@ -2222,36 +2618,14 @@ function finishBoundary() {
 
 
     /*
-     * Calculate area.
+     * Calculate final area.
      */
 
-    calculateArea(
-        polygonPoints
-    );
+    calculateFinalArea();
 
 
     /*
-     * Fit map around field.
-     */
-
-    map.fitBounds(
-
-        boundaryPolygon.getBounds(),
-
-        {
-
-            padding: [
-                40,
-                40
-            ]
-
-        }
-
-    );
-
-
-    /*
-     * Buttons.
+     * Update buttons.
      */
 
     document.getElementById(
@@ -2271,42 +2645,105 @@ function finishBoundary() {
     );
 
 
+    /*
+     * Fit field on map.
+     */
+
+    map.fitBounds(
+
+        boundaryPolygon.getBounds(),
+
+        {
+
+            padding: [
+                80,
+                80
+            ]
+
+        }
+
+    );
+
+
     setGPSStatus(
-        "Boundary captured",
-        "active"
+        "Captured",
+        "good"
+    );
+
+
+    showMessage(
+        "✓ Field boundary captured. Review the polygon and area before saving.",
+        "success"
     );
 
 
     showToast(
-        "Field boundary captured successfully."
+        "Field boundary completed."
     );
 
 
     /*
-     * Log data for testing.
+     * Log field data.
      */
 
     console.log(
-        "FIELD BOUNDARY:",
-        polygonPoints
-    );
+        "GREEN CARBON FIELD:",
+        {
 
+            farmerId:
+                document.getElementById(
+                    "farmerId"
+                ).value,
+
+            surveyNumber:
+                document.getElementById(
+                    "surveyNumber"
+                ).value,
+
+            village:
+                document.getElementById(
+                    "village"
+                ).value,
+
+            points:
+                boundaryPoints.map(
+
+                    function(point) {
+
+                        return {
+
+                            latitude:
+                                point.lat,
+
+                            longitude:
+                                point.lng
+
+                        };
+
+                    }
+
+                ),
+
+            bestGpsAccuracy:
+                bestAccuracy
+
+        }
+
+    );
 
 }
 
 
 
 /* ============================================================
-   CALCULATE AREA
+   FINAL AREA
 ============================================================ */
 
-function calculateArea(
-    points
-) {
+function calculateFinalArea() {
 
 
     const coordinates =
-        points.map(
+        boundaryPoints.map(
 
             function(point) {
 
@@ -2318,6 +2755,11 @@ function calculateArea(
             }
 
         );
+
+
+    coordinates.push(
+        coordinates[0]
+    );
 
 
     const polygon =
@@ -2334,25 +2776,49 @@ function calculateArea(
         );
 
 
-    const hectares =
-        squareMeters /
-        10000;
-
-
     const acres =
         squareMeters *
         0.000247105;
 
 
+    const hectares =
+        squareMeters /
+        10000;
+
+
     document.getElementById(
-        "area"
+        "areaText"
     ).textContent =
+        acres.toFixed(2) +
+        " ac";
 
-        acres.toFixed(3) +
-        " acres / " +
-        hectares.toFixed(3) +
-        " ha";
 
+    updateAreaLabel(
+
+        acres,
+
+        hectares
+
+    );
+
+
+
+    console.log(
+        "FINAL AREA:",
+        {
+
+            squareMeters:
+                squareMeters,
+
+            acres:
+                acres,
+
+            hectares:
+                hectares
+
+        }
+
+    );
 
 }
 
@@ -2367,6 +2833,10 @@ function clearBoundary() {
 
     capturing = false;
 
+
+    /*
+     * Stop GPS.
+     */
 
     if (
         watchId !== null
@@ -2383,17 +2853,25 @@ function clearBoundary() {
 
     boundaryPoints = [];
 
+    lastAcceptedPoint = null;
+
+    bestAccuracy = Infinity;
+
 
     clearBoundaryObjects();
 
 
+    /*
+     * Reset UI.
+     */
+
     document.getElementById(
-        "points"
+        "pointsText"
     ).textContent = "0";
 
 
     document.getElementById(
-        "area"
+        "areaText"
     ).textContent = "--";
 
 
@@ -2415,8 +2893,18 @@ function clearBoundary() {
 
 
     setGPSStatus(
-        "Ready",
-        "searching"
+        currentPosition ?
+            "Ready" :
+            "Finding...",
+        currentPosition ?
+            "good" :
+            ""
+    );
+
+
+    showMessage(
+        "Boundary cleared. You can start a new field capture.",
+        ""
     );
 
 
@@ -2429,7 +2917,7 @@ function clearBoundary() {
 
 
 /* ============================================================
-   CLEAR ONLY BOUNDARY OBJECTS
+   CLEAR BOUNDARY OBJECTS
 ============================================================ */
 
 function clearBoundaryObjects() {
@@ -2476,6 +2964,19 @@ function clearBoundaryObjects() {
 
     }
 
+
+    if (
+        areaLabel
+    ) {
+
+        map.removeLayer(
+            areaLabel
+        );
+
+        areaLabel = null;
+
+    }
+
 }
 
 
@@ -2496,7 +2997,7 @@ function handleGPSError(
 
 
     let message =
-        "Unable to get location.";
+        "Unable to get GPS location.";
 
 
     if (
@@ -2504,7 +3005,7 @@ function handleGPSError(
     ) {
 
         message =
-            "Location permission denied. Allow location for this site.";
+            "Location permission denied. Allow location for this website.";
 
     }
 
@@ -2513,7 +3014,7 @@ function handleGPSError(
     ) {
 
         message =
-            "Location unavailable. Check phone GPS.";
+            "Location unavailable. Check your phone GPS.";
 
     }
 
@@ -2522,14 +3023,20 @@ function handleGPSError(
     ) {
 
         message =
-            "GPS timed out. Move outdoors and try again.";
+            "GPS timed out. Go outdoors and try again.";
 
     }
 
 
     setGPSStatus(
+        "GPS Error",
+        "bad"
+    );
+
+
+    showMessage(
         message,
-        "error"
+        "warning"
     );
 
 
@@ -2554,28 +3061,25 @@ function setGPSStatus(
 ) {
 
 
-    let dotClass = "";
+    let className =
+        "";
 
 
     if (
-        type === "active"
+        type === "good"
     ) {
 
-        dotClass = "active";
+        className =
+            "good";
 
     }
 
     else if (
-        type === "searching"
+        type === "bad"
     ) {
 
-        dotClass = "searching";
-
-    }
-
-    else {
-
-        dotClass = "error";
+        className =
+            "bad";
 
     }
 
@@ -2585,8 +3089,9 @@ function setGPSStatus(
     ).innerHTML =
 
         '<span class="gps-dot ' +
-        dotClass +
+        className +
         '"></span>' +
+
         text;
 
 }
@@ -2594,7 +3099,115 @@ function setGPSStatus(
 
 
 /* ============================================================
-   SEARCH LOCATION
+   MESSAGE
+============================================================ */
+
+function showMessage(
+
+    text,
+
+    type
+
+) {
+
+
+    const element =
+        document.getElementById(
+            "message"
+        );
+
+
+    element.textContent =
+        text;
+
+
+    element.className =
+        "message";
+
+
+    if (
+        type
+    ) {
+
+        element.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+
+/* ============================================================
+   TOAST
+============================================================ */
+
+function showToast(
+    text
+) {
+
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        text;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer =
+        setTimeout(
+
+            function() {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+
+            3000
+
+        );
+
+}
+
+
+
+/* ============================================================
+   ZOOM
+============================================================ */
+
+function zoomIn() {
+
+    map.zoomIn();
+
+}
+
+
+function zoomOut() {
+
+    map.zoomOut();
+
+}
+
+
+
+/* ============================================================
+   SEARCH
 ============================================================ */
 
 async function searchLocation() {
@@ -2616,9 +3229,7 @@ async function searchLocation() {
 
 
     showToast(
-        "Searching for " +
-        query +
-        "..."
+        "Searching..."
     );
 
 
@@ -2651,7 +3262,7 @@ async function searchLocation() {
 
 
         if (
-            data.length === 0
+            !data.length
         ) {
 
             showToast(
@@ -2679,7 +3290,7 @@ async function searchLocation() {
 
             [lat, lng],
 
-            16,
+            17,
 
             {
 
@@ -2717,7 +3328,7 @@ async function searchLocation() {
 
 
 /* ============================================================
-   ENTER KEY SEARCH
+   ENTER SEARCH
 ============================================================ */
 
 document
@@ -2745,62 +3356,29 @@ document
 
 
 /* ============================================================
-   TOAST
+   AUTOMATIC GPS
 ============================================================ */
 
-function showToast(
-    message
-) {
 
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-
-        function() {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        },
-
-        3500
-
-    );
-
-}
-
-
-
-/* ============================================================
-   AUTOMATIC GPS ON PAGE LOAD
-============================================================ */
+/*
+ * Wait briefly after page load so the browser
+ * can render before requesting GPS.
+ */
 
 setTimeout(
 
     function() {
 
-        locateUser(false);
+        locateUser(
+            true
+        );
 
     },
 
-    800
+    700
 
 );
+
 
 
 /* ============================================================
@@ -2808,7 +3386,7 @@ setTimeout(
 ============================================================ */
 
 showToast(
-    "Real satellite imagery loaded. Finding your location..."
+    "Using real satellite imagery. Finding your location..."
 );
 
 </script>
