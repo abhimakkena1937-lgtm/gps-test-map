@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>GreenCarbon — Field Boundary Capture</title>
 
-    <!-- Leaflet -->
+
+    <!-- =====================================================
+         LEAFLET
+    ====================================================== -->
+
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+    >
 
     <script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
     </script>
 
-    <!-- Turf.js -->
+
+    <!-- =====================================================
+         TURF.JS
+         Used for accurate polygon area calculation
+    ====================================================== -->
+
     <script
         src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js">
     </script>
@@ -30,20 +43,30 @@
             box-sizing: border-box;
         }
 
+
         html,
         body {
+
             margin: 0;
             padding: 0;
+
             width: 100%;
             height: 100%;
-            font-family: Arial, sans-serif;
+
+            overflow: hidden;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #f5f4ed;
         }
 
 
         /* =====================================================
            HEADER
-        ===================================================== */
+        ====================================================== */
 
         .header {
 
@@ -70,7 +93,7 @@
             color: white;
 
             box-shadow:
-                0 2px 10px rgba(0,0,0,0.2);
+                0 2px 10px rgba(0, 0, 0, 0.22);
         }
 
 
@@ -90,8 +113,8 @@
 
         .brand-icon {
 
-            width: 34px;
-            height: 34px;
+            width: 35px;
+            height: 35px;
 
             display: flex;
 
@@ -100,7 +123,7 @@
 
             border-radius: 50%;
 
-            background: #e7f1e9;
+            background: #edf5ee;
 
             font-size: 20px;
         }
@@ -108,7 +131,7 @@
 
         .header-title {
 
-            font-size: 14px;
+            font-size: 13px;
 
             opacity: 0.85;
         }
@@ -116,14 +139,16 @@
 
         /* =====================================================
            SIDEBAR
-        ===================================================== */
+        ====================================================== */
 
         .sidebar {
 
             position: fixed;
 
             top: 64px;
+
             left: 0;
+
             bottom: 0;
 
             width: 360px;
@@ -156,7 +181,7 @@
 
             margin-top: 8px;
 
-            margin-bottom: 24px;
+            margin-bottom: 22px;
 
             font-size: 13px;
 
@@ -167,12 +192,12 @@
 
 
         /* =====================================================
-           FORM
-        ===================================================== */
+           INPUTS
+        ====================================================== */
 
         .field {
 
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
 
@@ -186,7 +211,7 @@
 
             font-weight: 600;
 
-            color: #49534d;
+            color: #4e5851;
         }
 
 
@@ -198,7 +223,7 @@
 
             padding: 0 12px;
 
-            border: 1px solid #d5d9d5;
+            border: 1px solid #d4d8d4;
 
             border-radius: 7px;
 
@@ -215,27 +240,47 @@
             border-color: #347b50;
 
             box-shadow:
-                0 0 0 2px rgba(52,123,80,0.12);
+                0 0 0 2px rgba(52, 123, 80, 0.12);
         }
 
 
         /* =====================================================
            BUTTONS
-        ===================================================== */
+        ====================================================== */
 
         button {
 
             border: none;
 
-            cursor: pointer;
-
             border-radius: 8px;
+
+            cursor: pointer;
 
             font-size: 13px;
 
             font-weight: 600;
+        }
 
-            transition: 0.2s;
+
+        .btn-location {
+
+            width: 100%;
+
+            height: 40px;
+
+            margin-bottom: 10px;
+
+            background: #e9f2eb;
+
+            color: #24683f;
+
+            border: 1px solid #c8ddcc;
+        }
+
+
+        .btn-location:hover {
+
+            background: #dfeee2;
         }
 
 
@@ -244,8 +289,6 @@
             width: 100%;
 
             height: 44px;
-
-            margin-top: 8px;
 
             background: #2e7d4f;
 
@@ -259,6 +302,14 @@
         }
 
 
+        .btn-start:disabled {
+
+            background: #b8c3bb;
+
+            cursor: not-allowed;
+        }
+
+
         .btn-finish {
 
             width: 100%;
@@ -267,7 +318,7 @@
 
             margin-top: 9px;
 
-            background: #d7d9d7;
+            background: #d8dad8;
 
             color: #777;
 
@@ -293,47 +344,47 @@
 
             margin-top: 9px;
 
-            background: #fff;
+            background: white;
 
-            border: 1px solid #dc6b6b;
+            color: #c64747;
 
-            color: #c64646;
+            border: 1px solid #dc7777;
         }
 
 
         .btn-clear:hover {
 
-            background: #fff3f3;
+            background: #fff4f4;
         }
 
 
         /* =====================================================
-           STATUS CARD
-        ===================================================== */
+           STATUS
+        ====================================================== */
 
         .status-card {
 
-            margin-top: 22px;
+            margin-top: 20px;
 
             padding: 15px;
-
-            border-radius: 10px;
 
             background: white;
 
             border: 1px solid #e0e2dd;
+
+            border-radius: 10px;
         }
 
 
         .status-title {
+
+            margin-bottom: 12px;
 
             font-size: 12px;
 
             font-weight: 700;
 
             color: #455148;
-
-            margin-bottom: 12px;
         }
 
 
@@ -343,9 +394,17 @@
 
             justify-content: space-between;
 
+            align-items: center;
+
             margin-bottom: 9px;
 
             font-size: 12px;
+        }
+
+
+        .status-row:last-child {
+
+            margin-bottom: 0;
         }
 
 
@@ -360,6 +419,8 @@
             color: #173d2a;
 
             font-weight: 600;
+
+            text-align: right;
         }
 
 
@@ -370,9 +431,9 @@
             width: 8px;
             height: 8px;
 
-            border-radius: 50%;
-
             margin-right: 5px;
+
+            border-radius: 50%;
 
             background: #aaa;
         }
@@ -390,13 +451,19 @@
         }
 
 
+        .gps-dot.searching {
+
+            background: #d9a329;
+        }
+
+
         /* =====================================================
            INSTRUCTIONS
-        ===================================================== */
+        ====================================================== */
 
         .instructions {
 
-            margin-top: 20px;
+            margin-top: 18px;
 
             padding: 15px;
 
@@ -408,13 +475,13 @@
 
         .instructions-title {
 
+            margin-bottom: 10px;
+
             color: #24683f;
 
             font-size: 12px;
 
             font-weight: 700;
-
-            margin-bottom: 10px;
         }
 
 
@@ -424,24 +491,32 @@
 
             gap: 9px;
 
-            margin-bottom: 8px;
-
-            font-size: 12px;
+            margin-bottom: 9px;
 
             color: #59635c;
 
+            font-size: 12px;
+
             line-height: 1.4;
+        }
+
+
+        .instruction:last-child {
+
+            margin-bottom: 0;
         }
 
 
         .number {
 
             min-width: 20px;
+
             height: 20px;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
             border-radius: 50%;
@@ -458,15 +533,18 @@
 
         /* =====================================================
            MAP
-        ===================================================== */
+        ====================================================== */
 
         #map {
 
             position: fixed;
 
             top: 64px;
+
             left: 360px;
+
             right: 0;
+
             bottom: 0;
 
             z-index: 1;
@@ -474,19 +552,20 @@
 
 
         /* =====================================================
-           MAP SEARCH
-        ===================================================== */
+           SEARCH
+        ====================================================== */
 
         .search-box {
 
-            position: absolute;
+            position: fixed;
 
             top: 84px;
+
             left: 380px;
 
             z-index: 1200;
 
-            width: 280px;
+            width: 300px;
 
             display: flex;
 
@@ -497,7 +576,7 @@
             overflow: hidden;
 
             box-shadow:
-                0 3px 12px rgba(0,0,0,0.2);
+                0 3px 14px rgba(0, 0, 0, 0.2);
         }
 
 
@@ -507,11 +586,11 @@
 
             height: 42px;
 
+            padding: 0 12px;
+
             border: none;
 
             outline: none;
-
-            padding: 0 12px;
 
             font-size: 12px;
         }
@@ -530,8 +609,130 @@
 
 
         /* =====================================================
+           MAP LOCATION BUTTON
+        ====================================================== */
+
+        .locate-control {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 90px;
+
+            z-index: 1000;
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 8px;
+
+            background: white;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,0.25);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            font-size: 19px;
+        }
+
+
+        .locate-control:hover {
+
+            background: #f2f7f3;
+        }
+
+
+        /* =====================================================
+           LEGEND
+        ====================================================== */
+
+        .legend {
+
+            position: fixed;
+
+            right: 20px;
+
+            bottom: 25px;
+
+            z-index: 1000;
+
+            padding: 12px 15px;
+
+            background: white;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.2);
+
+            font-size: 11px;
+        }
+
+
+        .legend-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .legend-row:last-child {
+
+            margin-bottom: 0;
+        }
+
+
+        .legend-point {
+
+            width: 10px;
+
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #2e9c59;
+        }
+
+
+        .legend-line {
+
+            width: 20px;
+
+            height: 3px;
+
+            background: #2e7d4f;
+        }
+
+
+        .legend-area {
+
+            width: 14px;
+
+            height: 10px;
+
+            border: 2px solid #2e7d4f;
+
+            background: rgba(46,125,79,0.18);
+        }
+
+
+        /* =====================================================
            TOAST
-        ===================================================== */
+        ====================================================== */
 
         .toast {
 
@@ -542,6 +743,8 @@
             bottom: 25px;
 
             z-index: 3000;
+
+            max-width: 340px;
 
             padding: 12px 17px;
 
@@ -575,74 +778,8 @@
 
 
         /* =====================================================
-           MAP LEGEND
-        ===================================================== */
-
-        .legend {
-
-            position: absolute;
-
-            right: 20px;
-
-            bottom: 30px;
-
-            z-index: 1000;
-
-            background: white;
-
-            padding: 12px 15px;
-
-            border-radius: 8px;
-
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.2);
-
-            font-size: 11px;
-        }
-
-
-        .legend-row {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            margin-bottom: 7px;
-        }
-
-
-        .legend-row:last-child {
-
-            margin-bottom: 0;
-        }
-
-
-        .legend-point {
-
-            width: 10px;
-            height: 10px;
-
-            border-radius: 50%;
-
-            background: #2e9c59;
-        }
-
-
-        .legend-line {
-
-            width: 18px;
-
-            height: 3px;
-
-            background: #2e7d4f;
-        }
-
-
-        /* =====================================================
            MOBILE
-        ===================================================== */
+        ====================================================== */
 
         @media (max-width: 800px) {
 
@@ -651,6 +788,12 @@
                 height: 56px;
 
                 padding: 0 14px;
+            }
+
+
+            .brand {
+
+                font-size: 17px;
             }
 
 
@@ -676,7 +819,7 @@
 
                 border-bottom: 1px solid #ddd;
 
-                padding: 15px;
+                padding: 14px;
             }
 
 
@@ -687,6 +830,8 @@
 
 
             .subtitle {
+
+                margin-top: 5px;
 
                 margin-bottom: 12px;
             }
@@ -704,9 +849,41 @@
             }
 
 
+            .btn-location {
+
+                height: 38px;
+
+                margin-bottom: 7px;
+            }
+
+
+            .btn-start {
+
+                height: 40px;
+            }
+
+
+            .btn-finish {
+
+                height: 40px;
+
+                margin-top: 7px;
+            }
+
+
+            .btn-clear {
+
+                height: 36px;
+
+                margin-top: 7px;
+            }
+
+
             .status-card {
 
                 margin-top: 12px;
+
+                padding: 12px;
             }
 
 
@@ -730,11 +907,19 @@
 
             .search-box {
 
-                top: calc(48vh + 12px);
+                top: calc(48vh + 10px);
 
-                left: 12px;
+                left: 10px;
 
                 width: 250px;
+            }
+
+
+            .locate-control {
+
+                top: calc(48vh + 10px);
+
+                right: 10px;
             }
 
 
@@ -742,8 +927,9 @@
 
                 right: 10px;
 
-                bottom: 15px;
+                bottom: 12px;
             }
+
         }
 
     </style>
@@ -791,11 +977,11 @@
         Capture Field Boundary
     </h1>
 
+
     <div class="subtitle">
 
-        Use your phone's GPS to walk around the
-        field perimeter and capture the exact
-        field boundary.
+        Use your phone's GPS to locate the field
+        and walk around its perimeter.
 
     </div>
 
@@ -851,6 +1037,18 @@
     </div>
 
 
+    <!-- Locate -->
+
+    <button
+        class="btn-location"
+        onclick="locateUser(true)"
+    >
+
+        📍 Go To My Current Location
+
+    </button>
+
+
     <!-- Start -->
 
     <button
@@ -893,7 +1091,7 @@
 
     <!-- =====================================================
          STATUS
-    ===================================================== -->
+    ====================================================== -->
 
     <div class="status-card">
 
@@ -913,8 +1111,8 @@
                 class="status-value"
             >
 
-                <span class="gps-dot"></span>
-                Waiting
+                <span class="gps-dot searching"></span>
+                Finding location...
 
             </span>
 
@@ -924,7 +1122,7 @@
         <div class="status-row">
 
             <span class="status-label">
-                GPS Accuracy
+                Accuracy
             </span>
 
             <span
@@ -974,7 +1172,7 @@
 
     <!-- =====================================================
          INSTRUCTIONS
-    ===================================================== -->
+    ====================================================== -->
 
     <div class="instructions">
 
@@ -985,7 +1183,9 @@
 
         <div class="instruction">
 
-            <span class="number">1</span>
+            <span class="number">
+                1
+            </span>
 
             <span>
                 Go outdoors and wait for a good GPS signal.
@@ -996,7 +1196,9 @@
 
         <div class="instruction">
 
-            <span class="number">2</span>
+            <span class="number">
+                2
+            </span>
 
             <span>
                 Press Start Boundary.
@@ -1007,7 +1209,9 @@
 
         <div class="instruction">
 
-            <span class="number">3</span>
+            <span class="number">
+                3
+            </span>
 
             <span>
                 Walk around the complete field perimeter.
@@ -1018,11 +1222,12 @@
 
         <div class="instruction">
 
-            <span class="number">4</span>
+            <span class="number">
+                4
+            </span>
 
             <span>
-                Press Finish Boundary when you return
-                to the starting point.
+                Return near the starting point.
             </span>
 
         </div>
@@ -1030,10 +1235,12 @@
 
         <div class="instruction">
 
-            <span class="number">5</span>
+            <span class="number">
+                5
+            </span>
 
             <span>
-                Review the polygon and area before saving.
+                Press Finish Boundary.
             </span>
 
         </div>
@@ -1073,6 +1280,22 @@
 
 
 <!-- =========================================================
+     LOCATE CONTROL
+========================================================= -->
+
+<div
+    class="locate-control"
+    onclick="locateUser(true)"
+    title="Go to current location"
+>
+
+    📍
+
+</div>
+
+
+
+<!-- =========================================================
      LEGEND
 ========================================================= -->
 
@@ -1098,7 +1321,9 @@
 
     <div class="legend-row">
 
-        📐 Field Area
+        <span class="legend-area"></span>
+
+        Field Area
 
     </div>
 
@@ -1113,8 +1338,7 @@
 <div
     id="toast"
     class="toast"
->
-</div>
+></div>
 
 
 
@@ -1122,24 +1346,30 @@
 
 
 /* ============================================================
-   MAP INITIALIZATION
+   MAP
 ============================================================ */
 
+
 /*
- * Starting location:
+ * Initial map position.
  *
- * Ongole / Prakasam, Andhra Pradesh
- *
- * This is only the initial camera location.
+ * This is only used until GPS is obtained.
  */
 
-const map = L.map("map", {
+const map = L.map(
+    "map",
+    {
 
-    zoomControl: true,
+        zoomControl: true,
 
-    attributionControl: true
+        attributionControl: true,
 
-}).setView(
+        maxZoom: 18,
+
+        minZoom: 3
+
+    }
+).setView(
 
     [15.5057, 80.0498],
 
@@ -1150,14 +1380,15 @@ const map = L.map("map", {
 
 
 /* ============================================================
-   BASE MAPS
+   SATELLITE
 ============================================================ */
 
 
 /*
- * REAL SATELLITE IMAGERY
+ * Real satellite imagery.
  *
- * Esri World Imagery
+ * maxNativeZoom tells Leaflet not to request
+ * satellite tiles beyond this level.
  */
 
 const satellite = L.tileLayer(
@@ -1166,7 +1397,11 @@ const satellite = L.tileLayer(
 
     {
 
-        maxZoom: 19,
+        minZoom: 3,
+
+        maxZoom: 18,
+
+        maxNativeZoom: 18,
 
         attribution:
             "Tiles © Esri"
@@ -1177,11 +1412,9 @@ const satellite = L.tileLayer(
 
 
 
-/*
- * SATELLITE + LABELS
- *
- * Satellite imagery remains underneath.
- */
+/* ============================================================
+   SATELLITE LABELS
+============================================================ */
 
 const labels = L.tileLayer(
 
@@ -1189,7 +1422,11 @@ const labels = L.tileLayer(
 
     {
 
-        maxZoom: 19,
+        minZoom: 3,
+
+        maxZoom: 18,
+
+        maxNativeZoom: 18,
 
         attribution:
             "Labels © Esri"
@@ -1200,9 +1437,9 @@ const labels = L.tileLayer(
 
 
 
-/*
- * OPENSTREETMAP
- */
+/* ============================================================
+   OPEN STREET MAP
+============================================================ */
 
 const outdoor = L.tileLayer(
 
@@ -1221,9 +1458,9 @@ const outdoor = L.tileLayer(
 
 
 
-/*
- * TOPOGRAPHIC
- */
+/* ============================================================
+   TOPOGRAPHIC
+============================================================ */
 
 const topographic = L.tileLayer(
 
@@ -1276,7 +1513,7 @@ L.control.layers(
 
     {
 
-        collapsed: false
+        collapsed: true
 
     }
 
@@ -1306,6 +1543,8 @@ let boundaryPolygon = null;
 
 let capturing = false;
 
+let hasLocatedUser = false;
+
 
 
 /* ============================================================
@@ -1325,16 +1564,25 @@ const gpsOptions = {
 
 
 /* ============================================================
-   START BOUNDARY
+   LOCATE USER
 ============================================================ */
 
-function startBoundary() {
+function locateUser(
+    moveMap = true
+) {
 
 
-    if (!navigator.geolocation) {
+    if (
+        !navigator.geolocation
+    ) {
 
         showToast(
             "GPS is not supported by this browser."
+        );
+
+        setGPSStatus(
+            "GPS unsupported",
+            false
         );
 
         return;
@@ -1342,72 +1590,37 @@ function startBoundary() {
     }
 
 
-    capturing = true;
-
-    boundaryPoints = [];
-
-
-    clearMapObjects();
-
-
-    document.getElementById(
-        "points"
-    ).textContent = "0";
-
-
-    document.getElementById(
-        "area"
-    ).textContent = "--";
-
-
-    document.getElementById(
-        "startBtn"
-    ).disabled = true;
-
-
-    document.getElementById(
-        "finishBtn"
-    ).disabled = true;
+    setGPSStatus(
+        "Finding location...",
+        "searching"
+    );
 
 
     /*
-     * Request GPS permission.
+     * Ask browser for current position.
      */
 
     navigator.geolocation.getCurrentPosition(
 
-        handleFirstPosition,
+        function(position) {
 
-        handleGPSError,
+            handleGPSPosition(
+                position,
+                moveMap
+            );
 
-        gpsOptions
+        },
 
-    );
+        function(error) {
 
+            handleGPSError(
+                error
+            );
 
-    /*
-     * Continue watching GPS.
-     */
-
-    watchId = navigator.geolocation.watchPosition(
-
-        handleGPSPosition,
-
-        handleGPSError,
+        },
 
         gpsOptions
 
-    );
-
-
-    setGPSStatus(
-        "Searching...",
-        false
-    );
-
-
-    showToast(
-        "Searching for high-accuracy GPS..."
     );
 
 }
@@ -1415,46 +1628,16 @@ function startBoundary() {
 
 
 /* ============================================================
-   FIRST GPS POSITION
+   HANDLE GPS POSITION
 ============================================================ */
 
-function handleFirstPosition(position) {
+function handleGPSPosition(
 
-    handleGPSPosition(position);
+    position,
 
+    moveMap = false
 
-    /*
-     * Enable finish after GPS starts.
-     */
-
-    document.getElementById(
-        "finishBtn"
-    ).disabled = false;
-
-    document.getElementById(
-        "finishBtn"
-    ).classList.add("active");
-
-
-    setGPSStatus(
-        "GPS Ready",
-        true
-    );
-
-
-    showToast(
-        "GPS connected. Start walking around the field."
-    );
-
-}
-
-
-
-/* ============================================================
-   GPS POSITION
-============================================================ */
-
-function handleGPSPosition(position) {
+) {
 
 
     const lat =
@@ -1483,8 +1666,17 @@ function handleGPSPosition(position) {
     };
 
 
+    console.log(
+        "GPS:",
+        lat,
+        lng,
+        "Accuracy:",
+        accuracy
+    );
+
+
     /*
-     * Update accuracy display.
+     * Update accuracy.
      */
 
     document.getElementById(
@@ -1494,7 +1686,7 @@ function handleGPSPosition(position) {
 
 
     /*
-     * Update GPS marker.
+     * Update marker.
      */
 
     updateGPSMarker(
@@ -1505,9 +1697,93 @@ function handleGPSPosition(position) {
 
 
     /*
-     * Ignore poor GPS positions.
+     * Move map to current position.
      *
-     * 10m is a starting test threshold.
+     * This happens when:
+     *
+     * - page loads
+     * - user presses Go To My Current Location
+     */
+
+    if (
+        moveMap ||
+        !hasLocatedUser
+    ) {
+
+        map.flyTo(
+
+            [lat, lng],
+
+            18,
+
+            {
+
+                duration: 2
+
+            }
+
+        );
+
+
+        hasLocatedUser = true;
+
+    }
+
+
+    /*
+     * GPS quality.
+     */
+
+    if (
+        accuracy <= 5
+    ) {
+
+        setGPSStatus(
+            "Excellent",
+            "active"
+        );
+
+    }
+
+    else if (
+        accuracy <= 10
+    ) {
+
+        setGPSStatus(
+            "Good",
+            "active"
+        );
+
+    }
+
+    else if (
+        accuracy <= 25
+    ) {
+
+        setGPSStatus(
+            "Fair — " +
+            accuracy.toFixed(0) +
+            " m",
+            "searching"
+        );
+
+    }
+
+    else {
+
+        setGPSStatus(
+            "Weak — " +
+            accuracy.toFixed(0) +
+            " m",
+            "error"
+        );
+
+    }
+
+
+    /*
+     * Add boundary point only
+     * when recording.
      */
 
     if (
@@ -1522,40 +1798,6 @@ function handleGPSPosition(position) {
 
     }
 
-
-    /*
-     * GPS status.
-     */
-
-    if (accuracy <= 5) {
-
-        setGPSStatus(
-            "Excellent",
-            true
-        );
-
-    }
-
-    else if (accuracy <= 10) {
-
-        setGPSStatus(
-            "Good",
-            true
-        );
-
-    }
-
-    else {
-
-        setGPSStatus(
-            "Weak — " +
-            accuracy.toFixed(0) +
-            "m",
-            false
-        );
-
-    }
-
 }
 
 
@@ -1565,9 +1807,13 @@ function handleGPSPosition(position) {
 ============================================================ */
 
 function updateGPSMarker(
+
     lat,
+
     lng,
+
     accuracy
+
 ) {
 
 
@@ -1576,10 +1822,12 @@ function updateGPSMarker(
 
 
     /*
-     * Marker
+     * GPS marker
      */
 
-    if (!gpsMarker) {
+    if (
+        !gpsMarker
+    ) {
 
         gpsMarker =
             L.circleMarker(
@@ -1613,7 +1861,9 @@ function updateGPSMarker(
      * Accuracy circle
      */
 
-    if (!accuracyCircle) {
+    if (
+        !accuracyCircle
+    ) {
 
         accuracyCircle =
             L.circle(
@@ -1646,22 +1896,107 @@ function updateGPSMarker(
 
     }
 
+}
+
+
+
+/* ============================================================
+   START BOUNDARY
+============================================================ */
+
+function startBoundary() {
+
+
+    if (
+        !navigator.geolocation
+    ) {
+
+        showToast(
+            "GPS is not supported."
+        );
+
+        return;
+
+    }
+
+
+    capturing = true;
+
+
+    boundaryPoints = [];
+
+
+    clearBoundaryObjects();
+
+
+    document.getElementById(
+        "points"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "area"
+    ).textContent = "--";
+
 
     /*
-     * Keep GPS marker visible.
+     * Disable Start.
      */
 
-    if (!capturing) {
+    document.getElementById(
+        "startBtn"
+    ).disabled = true;
 
-        map.setView(
-            position,
-            Math.max(
-                map.getZoom(),
-                17
-            )
+
+    /*
+     * GPS watcher.
+     */
+
+    if (
+        watchId !== null
+    ) {
+
+        navigator.geolocation.clearWatch(
+            watchId
         );
 
     }
+
+
+    watchId =
+        navigator.geolocation.watchPosition(
+
+            function(position) {
+
+                handleGPSPosition(
+                    position,
+                    false
+                );
+
+            },
+
+            function(error) {
+
+                handleGPSError(
+                    error
+                );
+
+            },
+
+            gpsOptions
+
+        );
+
+
+    setGPSStatus(
+        "Recording boundary...",
+        "active"
+    );
+
+
+    showToast(
+        "Boundary recording started. Walk around the field."
+    );
 
 }
 
@@ -1672,8 +2007,11 @@ function updateGPSMarker(
 ============================================================ */
 
 function addBoundaryPoint(
+
     lat,
+
     lng
+
 ) {
 
 
@@ -1685,9 +2023,7 @@ function addBoundaryPoint(
 
 
     /*
-     * Avoid adding points too close together.
-     *
-     * Minimum distance = 2 metres.
+     * Do not add points closer than 2 metres.
      */
 
     if (
@@ -1707,7 +2043,9 @@ function addBoundaryPoint(
             );
 
 
-        if (distance < 2) {
+        if (
+            distance < 2
+        ) {
 
             return;
 
@@ -1722,7 +2060,7 @@ function addBoundaryPoint(
 
 
     /*
-     * Add visible GPS point.
+     * Draw GPS point.
      */
 
     const marker =
@@ -1749,10 +2087,12 @@ function addBoundaryPoint(
 
 
     /*
-     * Update live line.
+     * Draw live boundary.
      */
 
-    if (!boundaryLine) {
+    if (
+        !boundaryLine
+    ) {
 
         boundaryLine =
             L.polyline(
@@ -1781,14 +2121,13 @@ function addBoundaryPoint(
 
 
     /*
-     * Update points count.
+     * Update point count.
      */
 
     document.getElementById(
         "points"
     ).textContent =
         boundaryPoints.length;
-
 
 }
 
@@ -1806,7 +2145,7 @@ function finishBoundary() {
     ) {
 
         showToast(
-            "You need at least 3 GPS points."
+            "At least 3 GPS points are required."
         );
 
         return;
@@ -1839,19 +2178,19 @@ function finishBoundary() {
      */
 
     const polygonPoints =
-        [...boundaryPoints];
-
-
-    polygonPoints.push(
-        boundaryPoints[0]
-    );
+        [
+            ...boundaryPoints,
+            boundaryPoints[0]
+        ];
 
 
     /*
      * Remove live line.
      */
 
-    if (boundaryLine) {
+    if (
+        boundaryLine
+    ) {
 
         map.removeLayer(
             boundaryLine
@@ -1863,7 +2202,7 @@ function finishBoundary() {
 
 
     /*
-     * Create polygon.
+     * Create field polygon.
      */
 
     boundaryPolygon =
@@ -1892,18 +2231,28 @@ function finishBoundary() {
 
 
     /*
-     * Fit map to field.
+     * Fit map around field.
      */
 
     map.fitBounds(
+
         boundaryPolygon.getBounds(),
+
         {
 
-            padding: [30, 30]
+            padding: [
+                40,
+                40
+            ]
 
         }
+
     );
 
+
+    /*
+     * Buttons.
+     */
 
     document.getElementById(
         "startBtn"
@@ -1924,7 +2273,7 @@ function finishBoundary() {
 
     setGPSStatus(
         "Boundary captured",
-        true
+        "active"
     );
 
 
@@ -1932,12 +2281,23 @@ function finishBoundary() {
         "Field boundary captured successfully."
     );
 
+
+    /*
+     * Log data for testing.
+     */
+
+    console.log(
+        "FIELD BOUNDARY:",
+        polygonPoints
+    );
+
+
 }
 
 
 
 /* ============================================================
-   AREA CALCULATION
+   CALCULATE AREA
 ============================================================ */
 
 function calculateArea(
@@ -1947,17 +2307,25 @@ function calculateArea(
 
     const coordinates =
         points.map(
-            p => [
-                p.lng,
-                p.lat
-            ]
+
+            function(point) {
+
+                return [
+                    point.lng,
+                    point.lat
+                ];
+
+            }
+
         );
 
 
     const polygon =
-        turf.polygon([
-            coordinates
-        ]);
+        turf.polygon(
+            [
+                coordinates
+            ]
+        );
 
 
     const squareMeters =
@@ -1967,7 +2335,8 @@ function calculateArea(
 
 
     const hectares =
-        squareMeters / 10000;
+        squareMeters /
+        10000;
 
 
     const acres =
@@ -1990,7 +2359,7 @@ function calculateArea(
 
 
 /* ============================================================
-   CLEAR
+   CLEAR BOUNDARY
 ============================================================ */
 
 function clearBoundary() {
@@ -2015,7 +2384,7 @@ function clearBoundary() {
     boundaryPoints = [];
 
 
-    clearMapObjects();
+    clearBoundaryObjects();
 
 
     document.getElementById(
@@ -2025,11 +2394,6 @@ function clearBoundary() {
 
     document.getElementById(
         "area"
-    ).textContent = "--";
-
-
-    document.getElementById(
-        "accuracy"
     ).textContent = "--";
 
 
@@ -2051,8 +2415,8 @@ function clearBoundary() {
 
 
     setGPSStatus(
-        "Waiting",
-        false
+        "Ready",
+        "searching"
     );
 
 
@@ -2065,27 +2429,31 @@ function clearBoundary() {
 
 
 /* ============================================================
-   CLEAR MAP OBJECTS
+   CLEAR ONLY BOUNDARY OBJECTS
 ============================================================ */
 
-function clearMapObjects() {
+function clearBoundaryObjects() {
 
 
     pointMarkers.forEach(
-        marker => {
+
+        function(marker) {
 
             map.removeLayer(
                 marker
             );
 
         }
+
     );
 
 
     pointMarkers = [];
 
 
-    if (boundaryLine) {
+    if (
+        boundaryLine
+    ) {
 
         map.removeLayer(
             boundaryLine
@@ -2096,7 +2464,9 @@ function clearMapObjects() {
     }
 
 
-    if (boundaryPolygon) {
+    if (
+        boundaryPolygon
+    ) {
 
         map.removeLayer(
             boundaryPolygon
@@ -2105,7 +2475,6 @@ function clearMapObjects() {
         boundaryPolygon = null;
 
     }
-
 
 }
 
@@ -2121,13 +2490,13 @@ function handleGPSError(
 
 
     console.error(
-        "GPS error:",
+        "GPS ERROR:",
         error
     );
 
 
     let message =
-        "GPS error";
+        "Unable to get location.";
 
 
     if (
@@ -2135,7 +2504,7 @@ function handleGPSError(
     ) {
 
         message =
-            "Location permission denied.";
+            "Location permission denied. Allow location for this site.";
 
     }
 
@@ -2144,7 +2513,7 @@ function handleGPSError(
     ) {
 
         message =
-            "Location unavailable.";
+            "Location unavailable. Check phone GPS.";
 
     }
 
@@ -2153,14 +2522,14 @@ function handleGPSError(
     ) {
 
         message =
-            "GPS request timed out.";
+            "GPS timed out. Move outdoors and try again.";
 
     }
 
 
     setGPSStatus(
         message,
-        false
+        "error"
     );
 
 
@@ -2177,21 +2546,46 @@ function handleGPSError(
 ============================================================ */
 
 function setGPSStatus(
+
     text,
-    active
+
+    type
+
 ) {
 
 
-    const element =
-        document.getElementById(
-            "gpsStatus"
-        );
+    let dotClass = "";
 
 
-    element.innerHTML =
+    if (
+        type === "active"
+    ) {
+
+        dotClass = "active";
+
+    }
+
+    else if (
+        type === "searching"
+    ) {
+
+        dotClass = "searching";
+
+    }
+
+    else {
+
+        dotClass = "error";
+
+    }
+
+
+    document.getElementById(
+        "gpsStatus"
+    ).innerHTML =
 
         '<span class="gps-dot ' +
-        (active ? "active" : "error") +
+        dotClass +
         '"></span>' +
         text;
 
@@ -2212,7 +2606,9 @@ async function searchLocation() {
         ).value.trim();
 
 
-    if (!query) {
+    if (
+        !query
+    ) {
 
         return;
 
@@ -2220,24 +2616,25 @@ async function searchLocation() {
 
 
     showToast(
-        "Searching..."
+        "Searching for " +
+        query +
+        "..."
     );
 
 
     try {
 
 
-        /*
-         * Nominatim / OpenStreetMap geocoder
-         *
-         * This is for testing only.
-         */
-
         const url =
+
             "https://nominatim.openstreetmap.org/search" +
+
             "?format=json" +
+
             "&limit=1" +
+
             "&q=" +
+
             encodeURIComponent(
                 query
             );
@@ -2279,13 +2676,17 @@ async function searchLocation() {
 
 
         map.flyTo(
+
             [lat, lng],
-            17,
+
+            16,
+
             {
 
                 duration: 2
 
             }
+
         );
 
 
@@ -2296,7 +2697,9 @@ async function searchLocation() {
 
     }
 
-    catch (error) {
+    catch (
+        error
+    ) {
 
         console.error(
             error
@@ -2322,7 +2725,9 @@ document
         "searchInput"
     )
     .addEventListener(
+
         "keydown",
+
         function(event) {
 
             if (
@@ -2334,6 +2739,7 @@ document
             }
 
         }
+
     );
 
 
@@ -2363,6 +2769,7 @@ function showToast(
 
 
     setTimeout(
+
         function() {
 
             toast.classList.remove(
@@ -2370,7 +2777,9 @@ function showToast(
             );
 
         },
+
         3500
+
     );
 
 }
@@ -2378,15 +2787,33 @@ function showToast(
 
 
 /* ============================================================
-   INITIAL MAP MESSAGE
+   AUTOMATIC GPS ON PAGE LOAD
+============================================================ */
+
+setTimeout(
+
+    function() {
+
+        locateUser(false);
+
+    },
+
+    800
+
+);
+
+
+/* ============================================================
+   INITIAL MESSAGE
 ============================================================ */
 
 showToast(
-    "Using real satellite imagery — Esri World Imagery"
+    "Real satellite imagery loaded. Finding your location..."
 );
 
 </script>
 
 
 </body>
+
 </html>
